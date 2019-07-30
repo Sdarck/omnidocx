@@ -299,7 +299,10 @@ module Omnidocx
           #updating the stlye ids in the table elements present in the document content XML
           doc_content = doc_cnt == 0 ? @main_body : Nokogiri::XML(zip_file.read(DOCUMENT_FILE_PATH))
           doc_content.xpath("//w:tbl").each do |tbl_node|
-            val_attr = tbl_node.xpath('.//w:tblStyle').last.attributes['val']
+            lst = tbl_node.xpath('.//w:tblStyle').last
+            next unless lst
+
+            val_attr = lst.attributes['val']
             table_hash["doc#{doc_cnt}"][val_attr.value.to_s] = tbl_cnt
             val_attr.value = val_attr.value.gsub(/[0-9]+/, tbl_cnt.to_s)
             tbl_cnt += 1
@@ -398,8 +401,9 @@ module Omnidocx
         zos.print @main_document_xml.to_xml
       end
 
+      temp_file.close
       #moving the temporary docx file to the final_path specified by the user
-      FileUtils.mv(temp_file.path, final_path)
+      FileUtils.cp(temp_file.path, final_path)
     end
 
     def self.replace_doc_content(replacement_hash={}, template_path, final_path)
