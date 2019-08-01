@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{A gem to merge docx files, write images to docx and other utilities.}
   spec.description   = %q{A gem that allows to merge multiple docx (microsoft word) files into one, write images to a docx file and make string replacements in the header, footer or main document content.}
-  spec.homepage      = "https://github.com/parthnagori/omnidocx"
+  spec.homepage      = "https://github.com/Sdarck/omnidocx"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
